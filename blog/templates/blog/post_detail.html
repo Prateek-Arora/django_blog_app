@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+
+{% block title %}My Blog{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{post.title}}</h1>
+    {% if post.published_date %}
+        <h5 class="mb-2 text-muted">Published: {{post.published_date}}</h5>
+    {% endif %}
+    <p>{{post.text|linebreaksbr}}</p>
+
+</div>
+
+
+{% endblock %}
