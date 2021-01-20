@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+ 
+{% block title %}My Blog{% endblock %}
+ 
+{% block content %}
+<h2 class="ml-5 mt-3">Prateek's Blog</h2>
+<div class="d-flex flex-wrap">
+    {% for post in posts%}
+        <div class="card text-dark bg-light mt-4 ml-5" style="width: 28rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{post.title}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Published : {{post.published_date}}</h6>
+                <p class="card-text">{{post.text|linebreaksbr}}</p>
+                <a href="#" class="card-link">View Full Post</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
