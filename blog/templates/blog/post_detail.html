@@ -3,12 +3,12 @@
 {% block title %}My Blog{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>{{post.title}}</h1>
+<div class="container mt-4">
+    <h1 class="page-header text-center">{{post.title}}</h1>
     {% if post.published_date %}
-        <h5 class="mb-2 text-muted">Published: {{post.published_date}}</h5>
+        <h5 class="mb-2 text-muted text-center">Published: {{post.published_date}}</h5>
     {% endif %}
-    <p>{{post.text|linebreaksbr}}</p>
+    <p class="mt-4">{{post.text|linebreaksbr}}</p>
 
 </div>
 
