@@ -4,9 +4,12 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1 class="page-header text-center">{{post.title}}</h1>
+    <div class="d-flex text-center">
+        <h1 class="page-header text-center">{{post.title}}</h1> 
+        <a href="{% url 'post_edit' pk=post.pk %}"><i class="ml-5 fas fa-edit fa-2x" style="color: #0667e6;"></i></a>
+    </div>
     {% if post.published_date %}
-        <h5 class="mb-2 text-muted text-center">Published: {{post.published_date}}</h5>
+        <h5 class="mb-2 text-muted">Published: {{post.published_date}}</h5>
     {% endif %}
     <p class="mt-4">{{post.text|linebreaksbr}}</p>
 
