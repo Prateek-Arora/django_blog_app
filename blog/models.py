@@ -11,6 +11,9 @@ class Post(models.Model):
     published_date  = models.DateTimeField(blank=True, null=True)
 
 
+    def approved_comments(self):
+        return self.comments.filter(approved=True)
+
     def publish(self):
         self.published_date = timezone.now()
         self.save()
@@ -24,6 +27,11 @@ class Comment(models.Model):
     author          = models.CharField(max_length=100)
     text            = models.TextField()
     created_date    = models.DateTimeField(default=timezone.now)
+    approved        = models.BooleanField(default=False)
+
+    def approve(self):
+        self.approved = True
+        self.save()
 
     class Meta:
         ordering = ['created_date']

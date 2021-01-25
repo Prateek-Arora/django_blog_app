@@ -29,24 +29,29 @@
         <div class="col-md-8 card mb-4 mt-3 ">
             <div class="card-body" style="font-size: 14px;">
                 <!-- comments -->
-                {% if post.comments.count > 0 %}
-                    <h6>{{ post.comments.count }} comments</h6>
+                {% if post.approved_comments %}
+                    <h6>{{ post.approved_comments.count }} comments</h6>
                 {% else %}
                     <h6>No Comments</h6>
                 {% endif %}
                 <hr>
         
                 {% for comment in post.comments.all %}
-                <div class="comments" style="padding: 10px;">
-                    <p class="font-weight-bold">
-                        {{ comment.author }}
-                        <span class=" text-muted font-weight-normal">
-                            ,  {{ comment.created_date }}
-                        </span>
-                        <a href="{% url 'comment_remove' pk=comment.pk %}"><i class="fas fa-trash-alt ml-4" style="color: #e01c1c;"></i></a>
-                    </p>
-                    {{ comment.text | linebreaks }}
-                </div>
+                    {% if user.is_authenticated or comment.approved %}
+                        <div class="comments" style="padding: 10px;">
+                            <p class="font-weight-bold">
+                                {% if not comment.approved and user.is_superuser %}
+                                    <a href="{% url 'comment_approve' pk=comment.pk %}"><i class="fas fa-check mr-2"></i></a>
+                                    <a href="{% url 'comment_remove' pk=comment.pk %}"><i class="fas fa-trash-alt mr-2" style="color: #e70c0c;"></i></a>
+                                {% endif %}
+                                {{ comment.author }}
+                                <span class=" text-muted font-weight-normal">
+                                    ,  {{ comment.created_date }}
+                                </span>
+                            </p>
+                            {{ comment.text | linebreaks }}
+                        </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>

@@ -14,6 +14,7 @@
                     <h5 class="card-title">{{post.title}}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Published : {{post.published_date}}</h6>
                     <p class="card-text">{{post.text|linebreaksbr|truncatechars:60}} <a href="{% url 'post_detail' pk=post.pk %}" class="card-link">Read More</a></p>
+                    <a href="{% url 'post_detail' pk=post.pk %}" class="card-link">{{post.approved_comments.count}} Comments</a>
                 </div>
             </div>
         {% endfor %}
