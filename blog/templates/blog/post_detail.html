@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% load crispy_forms_tags %}
+{% load markdownify %}
 
 {% block title %}{{post.title}}{% endblock %}
 
@@ -17,7 +18,7 @@
         {% if post.published_date %}
             <h5 class="mb-2 text-muted">Published: {{post.published_date}}</h5>
         {% endif %}
-        <p class="mt-4">{{post.text|linebreaksbr}}</p>
+        <p class="mt-4">{{post.text|markdown|safe}}</p>
         <div class="" style="height: 100px;"></div>
         <hr>
 
@@ -49,7 +50,7 @@
                                     ,  {{ comment.created_date }}
                                 </span>
                             </p>
-                            {{ comment.text | linebreaks }}
+                            {{ comment.text | markdown | safe | linebreaks }}
                         </div>
                     {% endif %}
                 {% endfor %}
