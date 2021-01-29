@@ -2,14 +2,14 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Sign Up{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
     <div class="panel panel-default">
         <div class="border border-secondary bg-light p-5 mt-4 mb-4" style="width: 500px;">
-            <h1>Login</h1>
-            <form method="POST" class="mt-3">
+            <h3 class="mb-3">Become a Simple Blogger today.</h3>
+            <!-- <form method="POST" class="mt-3">
                 {% csrf_token %}
                 <div class="mb-3 mx-auto">
                     {{form.username|as_crispy_field }}
@@ -18,7 +18,10 @@
                     {{form.password|as_crispy_field }}
                 </div>
                 <button type="submit" class="btn btn-primary">Login</button>
-            </form>
+            </form> -->
+            <div class="panel-body">
+                {% crispy form %}
+            </div>
         </div>
     </div>
 </div>

@@ -26,6 +26,8 @@ SECRET_KEY = '#$6vpp)lkjp&^$q8)1net=i#1eau@4=ty0aaraydqflz%jpqvp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = 'post_list'
