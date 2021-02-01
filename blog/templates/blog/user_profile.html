@@ -6,6 +6,7 @@
         <div class="mt-4">
             <i class="fas fa-user-circle fa-6x mb-2"></i>
             <h4>{{user}}</h4>
+            <a href="{% url 'user_posts' pk=user.pk%}"><i class="fas fa-list"></i> View My Posts</a>
             <hr>
             <div class="d-flex justify-content-around mt-3" style="color: #585858">
                 <h4>Total Posts</h4>

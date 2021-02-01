@@ -137,3 +137,11 @@ def user_profile(request, pk):
     stuff_for_frontend = {'user': user, 'user_posts': user_posts, 'user_comments': user_comments}
     return render(request, 'blog/user_profile.html', stuff_for_frontend)
 
+
+@login_required
+def user_posts(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    user_posts = Post.objects.filter(author=user)
+    stuff_for_frontend = {'user': user, 'user_posts': user_posts}
+    return render(request, 'blog/user_posts.html', stuff_for_frontend)
+
