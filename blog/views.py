@@ -68,8 +68,9 @@ def post_edit(request, pk):
 
 
 @login_required
-def post_draft_list(request):
-    posts = Post.objects.filter(published_date__isnull=True).order_by('-created_date')
+def post_draft_list(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    posts = Post.objects.filter(author=user).filter(published_date__isnull=True).order_by('-created_date')
     stuff_for_frontend = {'posts': posts}
     return render(request, 'blog/post_draft_list.html', stuff_for_frontend)
 
@@ -132,16 +133,17 @@ def signup(request):
 @login_required
 def user_profile(request, pk):
     user = get_object_or_404(User, pk=pk)
-    user_posts = Post.objects.filter(author=user)
-    user_comments = Comment.objects.filter(author=user)
-    stuff_for_frontend = {'user': user, 'user_posts': user_posts, 'user_comments': user_comments}
+    user_posts = Post.objects.filter(author=user).filter(published_date__isnull=False).count
+    user_drafts = Post.objects.filter(author=user).filter(published_date__isnull=True).count
+    user_comments = Comment.objects.filter(author=user).count
+    stuff_for_frontend = {'user': user, 'user_posts': user_posts, 'user_comments': user_comments,'user_drafts': user_drafts}
     return render(request, 'blog/user_profile.html', stuff_for_frontend)
 
 
 @login_required
 def user_posts(request, pk):
     user = get_object_or_404(User, pk=pk)
-    user_posts = Post.objects.filter(author=user)
+    user_posts = Post.objects.filter(author=user).filter(published_date__isnull=False).order_by('-created_date')
     stuff_for_frontend = {'user': user, 'user_posts': user_posts}
     return render(request, 'blog/user_posts.html', stuff_for_frontend)
 

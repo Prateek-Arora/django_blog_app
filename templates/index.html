@@ -28,7 +28,7 @@
                         <a href="{% url 'post_new' %}"><i class="fas fa-plus fa-2x" style="color: aliceblue; float: right;"></i></a>
                     </li>
                     <li class="nav-item mr-4">
-                        <a href="{% url 'post_draft_list' %}"><i class="fas fa-save fa-2x" style="color: aliceblue; float: right;"></i></a>
+                        <a href="{% url 'post_draft_list' pk=user.pk%}"><i class="fas fa-save fa-2x" style="color: aliceblue; float: right;"></i></a>
                     </li>
                     <li class="nav-item dropdown ml-4 mr-3">
                         <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
