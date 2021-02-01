@@ -35,7 +35,7 @@
                             <i class="fas fa-user fa-2x" style="color: aliceblue; float: right;"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'user_profile' pk=user.pk %}">Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                         </ul>
                         <!-- <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-2x" style="color: aliceblue; float: right;"></i></a> -->

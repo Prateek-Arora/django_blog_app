@@ -128,3 +128,12 @@ def signup(request):
         form = UserForm()
     return render(request, 'blog/signup.html', {'form': form})
 
+
+@login_required
+def user_profile(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    user_posts = Post.objects.filter(author=user)
+    user_comments = Comment.objects.filter(author=user)
+    stuff_for_frontend = {'user': user, 'user_posts': user_posts, 'user_comments': user_comments}
+    return render(request, 'blog/user_profile.html', stuff_for_frontend)
+
