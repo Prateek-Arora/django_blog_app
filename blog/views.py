@@ -17,6 +17,7 @@ def post_list(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    user = request.user
     if request.method == 'POST':
         if request.user.is_authenticated:
             form = CommentForm(request.POST)
@@ -30,7 +31,7 @@ def post_detail(request, pk):
             return redirect('login')
     else:
         form = CommentForm()
-    stuff_for_frontend = {'post': post, 'form': form}
+    stuff_for_frontend = {'post': post, 'form': form,'user': user}
     return render(request, 'blog/post_detail.html', stuff_for_frontend)
 
 
@@ -52,7 +53,7 @@ def post_new(request):
 @login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    if request.method == 'POST':
+    if request.method == 'POST' and (request.user == post.author or request.user.is_superuser):
 
         #updating an existing form.
         form = PostForm(request.POST, instance=post)
@@ -61,10 +62,11 @@ def post_edit(request, pk):
             post.author = request.user
             post.save()
             return redirect('post_detail', pk=post.pk)
-    else:
+    elif request.method != 'POST' and (request.user == post.author or request.user.is_superuser):
         form = PostForm(instance=post)
         stuff_for_frontend = {'form': form}
-    return render(request, 'blog/post_edit.html', stuff_for_frontend)
+        return render(request, 'blog/post_edit.html', stuff_for_frontend)
+    return redirect('post_detail', pk=post.pk)
 
 
 @login_required
